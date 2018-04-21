@@ -1,0 +1,19 @@
+{
+  "name": "job_composter",
+  "version": "1.0.0",
+  "description": "3 Devs, 1 Project, 24 Hours to do it!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d-baranowski/leedsHack2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d-baranowski/leedsHack2018/issues"
+  },
+  "homepage": "https://github.com/d-baranowski/leedsHack2018#readme"
+}
