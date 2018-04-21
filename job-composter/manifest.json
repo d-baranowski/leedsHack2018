@@ -12,6 +12,7 @@
   "manifest_version": 2,
   "content_scripts": [{
     "matches": ["https://www.indeed.co.uk/*"],
+<<<<<<< HEAD
     "js": ["./dist/indeed.js"],
     "css" : ["./lib/jobcomposer.css"]
   },{
@@ -19,4 +20,12 @@
     "js": ["./dist/cwjobs.js"],
     "css" : ["./lib/jobcomposer.css"]
   }]
+=======
+    "js": ["./dist/indeed.js"]
+  },{
+    "matches": ["https://www.cwjobs.co.uk/*"],
+    "js": ["./dist/cwjobs.js"]
+  }
+  ]
+>>>>>>> 511aa9ccb0cc0ac87798f0311edd2c86289ca532
 }

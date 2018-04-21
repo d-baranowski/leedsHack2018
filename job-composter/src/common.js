@@ -16,8 +16,10 @@ function waitForElement(elementQuery){
 }
 
 function sendToAggregator(body){
+
     request.post('http://ec2-18-130-16-177.eu-west-2.compute.amazonaws.com:8080/jobLoad',
         { json: true, rejectUnauthorized: false, body: body }),
+
         function(error, response) {
                 console.log(error,response.body);
                 return;
