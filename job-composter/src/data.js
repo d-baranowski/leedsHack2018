@@ -94,12 +94,12 @@ const MOCK_DATA = [
 ]
 
 const data = {
-    getReplacement: function(text) {
-        const replacement = MOCK_DATA.find(entry => {
+    getReplacements: function(text) {
+        const replacements = MOCK_DATA.filter(entry => {
             return text.match(entry.textPattern);
         });
 
-        return replacement;
+        return replacements;
     }
 }
 
