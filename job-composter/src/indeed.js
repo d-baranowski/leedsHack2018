@@ -6,13 +6,13 @@ window.onload = () => {
     const promise = waitForElement("#vjs-desc");
     promise.then(() => {
         console.log("element found");
-        document.querySelectorAll('#vjs-desc *').forEach(function (node) {
-            console.log("analysing element ", node.textContent);
-            const foundIt = data.getReplacement(node.textContent);
+        const advertText = document.querySelector('#vjs-desc').textContent;
+
+            console.log("analysing element ", advertText);
+            const foundIt = data.getReplacements(advertText);
             if (foundIt) {
                 console.log(foundIt);
             }
-        });
     });
 };
 
