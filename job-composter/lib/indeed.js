@@ -13,12 +13,12 @@ window.onload = function () {
     var promise = (0, _common.waitForElement)("#vjs-desc");
     promise.then(function () {
         console.log("element found");
-        document.querySelectorAll('#vjs-desc *').forEach(function (node) {
-            console.log("analysing element ", node.textContent);
-            var foundIt = _data2.default.getReplacement(node.textContent);
-            if (foundIt) {
-                console.log(foundIt);
-            }
-        });
+        var advertText = document.querySelector('#vjs-desc').textContent;
+
+        console.log("analysing element ", advertText);
+        var foundIt = _data2.default.getReplacements(advertText);
+        if (foundIt) {
+            console.log(foundIt);
+        }
     });
 };

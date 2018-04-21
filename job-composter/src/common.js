@@ -1,4 +1,6 @@
-function waitForElement(elementQuery, callBack){
+import request from "request";
+
+function waitForElement(elementQuery){
     return new Promise(function(resolve) {
         window.setTimeout(function(){
             console.log("awaiting element")
@@ -7,10 +9,18 @@ function waitForElement(elementQuery, callBack){
                 console.log("resolving promise");
                 resolve();
             } else{
-                waitForElement(elementQuery, callBack);
+                waitForElement(elementQuery);
             }
         },100)
     });
 }
 
-export { waitForElement }
+function sendToAggregator(body){
+    request.post('http://localhost:8080/jobLoad', { json: true, rejectUnauthorized: false, body: body }),
+        function(error, response) {
+                console.log(error,response.body);
+                return;
+        }
+}
+
+export { waitForElement, sendToAggregator }

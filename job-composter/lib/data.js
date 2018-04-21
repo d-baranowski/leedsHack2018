@@ -51,12 +51,12 @@ var MOCK_DATA = [{
 }];
 
 var data = {
-    getReplacement: function getReplacement(text) {
-        var replacement = MOCK_DATA.find(function (entry) {
+    getReplacements: function getReplacements(text) {
+        var replacements = MOCK_DATA.filter(function (entry) {
             return text.match(entry.textPattern);
         });
 
-        return replacement;
+        return replacements;
     }
 };
 
