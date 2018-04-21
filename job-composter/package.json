@@ -22,7 +22,7 @@
     "url": "https://github.com/d-baranowski/leedsHack2018/issues"
   },
   "dependencies": {
-    "request": "^2.85.0"
+    "needle": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
