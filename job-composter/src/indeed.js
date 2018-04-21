@@ -1,22 +1,13 @@
 import data from "./data";
-
-function waitForElement(elementId, callBack){
-    return new Promise(function(resolve) {
-        window.setTimeout(function(){
-            var element = document.getElementById(elementId);
-            if(element) {
-                resolve();
-            } else{
-                waitForElement(elementId, callBack);
-            }
-        },100)
-    });
-}
+import {waitForElement} from "./common";
 
 window.onload = () => {
-    document.querySelectorAll('#vjs-desc *').forEach(function(node) {
-        const promise = waitForElement("#vjs-desc");
-        promise.then(() => {
+    console.log("Window load debug");
+    const promise = waitForElement("#vjs-desc");
+    promise.then(() => {
+        console.log("element found");
+        document.querySelectorAll('#vjs-desc *').forEach(function (node) {
+            console.log("analysing element ", node.textContent);
             const foundIt = data.getReplacement(node.textContent);
             if (foundIt) {
                 console.log(foundIt);
