@@ -1,6 +1,8 @@
 import data from "./data";
 import {waitForElement} from "./common";
 
+var needle = require('needle');
+
 window.onload = () => {
     console.log("Window load debug");
     const promise = waitForElement("#vjs-desc");
