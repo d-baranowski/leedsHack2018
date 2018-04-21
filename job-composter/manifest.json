@@ -12,6 +12,7 @@
   "manifest_version": 2,
   "content_scripts": [{
     "matches": ["https://www.indeed.co.uk/*"],
-    "js": ["./dist/indeed.js"]
+    "js": ["./dist/indeed.js"],
+    "css" : ["./lib/jobcomposer.css"]
   }]
 }
