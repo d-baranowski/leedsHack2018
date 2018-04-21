@@ -14,5 +14,13 @@
     "matches": ["https://www.indeed.co.uk/*"],
     "js": ["./dist/indeed.js"],
     "css" : ["./lib/jobcomposer.css"]
+  },{
+    "matches": ["https://www.cwjobs.co.uk/*"],
+    "js": ["./dist/cwjobs.js"],
+    "css" : ["./lib/jobcomposer.css"]
+  },{
+    "matches": ["https://www.monster.co.uk/*"],
+    "js": ["./dist/monster.js"],
+    "css" : ["./lib/jobcomposer.css"]
   }]
 }

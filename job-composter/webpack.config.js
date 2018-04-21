@@ -1,10 +1,14 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-    entry: './lib/indeed.js',
+
+    entry: {indeed: "./lib/indeed.js", cwjobs: "./lib/cwjobs.js", monster: "./lib/monster.js"},
+
     output: {
-        filename: 'indeed.js',
-        path: path.resolve(__dirname, 'dist')
+        filename: "[name].js",
+        path: path.resolve(__dirname, "dist")
     },
-    devtool: 'source-map'
+
+    devtool: 'source-map',
+    node: {fs : 'empty'}
 };
