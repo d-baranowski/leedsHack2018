@@ -1,0 +1,16 @@
+{
+  "name": "sentiment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "Sentimental": "1.0.1",
+    "nedb": "1.8.0",
+    "ws": "^5.1.1"
+  }
+}
