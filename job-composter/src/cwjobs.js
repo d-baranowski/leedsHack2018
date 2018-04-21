@@ -1,26 +1,17 @@
 import data from "./data";
-
-function waitForElement(elementClass, callBack){
-    return new Promise(function(resolve) {
-        window.setTimeout(function(){
-            var element = document.getElementsByClassName(elementClass).item(0);
-            if(element) {
-                resolve();
-            } else{
-                waitForElement(elementClass, callBack);
-            }
-        },100)
-    });
-}
+import {waitForElement} from "./common";
 
 window.onload = () => {
-    document.querySelectorAll(".job-description *").forEach(function(node) {
-        const promise = waitForElement(".job-description");
-        promise.then(() => {
-            const foundIt = data.getReplacement(node.textContent);
-            if (foundIt) {
-                console.log(foundIt);
-            }
-        });
-    });
+   console.log("Window load debug");
+   const promise = waitForElement(".job-description");
+   promise.then(() => {
+       console.log("element found");
+       const advertText = document.querySelector('.job-description').textContent;
+
+           console.log("analysing element ", advertText);
+           const foundIt = data.getReplacements(advertText);
+           if (foundIt) {
+               console.log(foundIt);
+           }
+   });
 };
