@@ -1,5 +1,6 @@
 dist
 lib
+package-lock.json
 # Created by https://www.gitignore.io/api/java,node,maven,macos,python,kotlin,intellij
 
 ### Intellij ###
