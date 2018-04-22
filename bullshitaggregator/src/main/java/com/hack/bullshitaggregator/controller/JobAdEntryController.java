@@ -25,7 +25,8 @@ public class JobAdEntryController {
 
     @PostMapping
     @ResponseBody
-    @RequestMapping(value = "/jobLoad", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/jobLoad", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     List<JobEntry> addJobAdEntry(@RequestBody final JobEntry jobEntry) {
         return this.jobEntryOrchestrator.saveAndReturnSimilar(jobEntry);
     }

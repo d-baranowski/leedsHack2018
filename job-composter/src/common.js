@@ -1,4 +1,4 @@
-import needle from "needle";
+import needle from "needle"
 
 function waitForElement(elementQuery){
     return new Promise(function(resolve) {
@@ -17,9 +17,13 @@ function waitForElement(elementQuery){
 
 function sendToAggregator(body){
 
-    needle.post('http://ec2-18-130-16-177.eu-west-2.compute.amazonaws.com:8080/jobLoad', body,
-        function(err, resp, body) {
-    })
+    const options = {
+        headers: {'Content-Type': 'application/json'}
+    }
+    needle.post('https://localhost:8443/jobLoad', body, options,  function(err, resp){
+            console.log('potato');
+            console.log(resp.body)
+        });
 }
 
 export { waitForElement, sendToAggregator }
