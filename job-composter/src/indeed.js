@@ -5,6 +5,7 @@ var needle = require('needle');
 
 window.onload = () => {
     console.log("Window load debug");
+
     const promise = waitForElement("#vjs-desc");
     promise.then(() => {
         console.log("element found");
