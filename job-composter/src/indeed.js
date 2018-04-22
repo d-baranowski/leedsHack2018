@@ -15,7 +15,7 @@ const deBullshitifyArticle = () => {
         if (replacements) {
             console.log("replacements", replacements);
             const body = JSON.stringify({"keywords" : replacements.map((item) => {return item.replacementTexts[0]}), "url" : document.URL})
-            sendToAggregator(body);
+            //sendToAggregator(body);
         }
 
         const currentHtml = advertElement.innerHTML;
