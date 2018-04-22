@@ -4,6 +4,12 @@ info:
   version: 1.0.0
   title: Replacements API
 
+schemes:
+  - https
+
+host: "9rph5cqv47.execute-api.eu-west-2.amazonaws.com"
+basePath: "/dev"
+
 # tags are used for organizing operations
 tags:
 - name: replacements
@@ -115,4 +121,3 @@ definitions:
         items:
           type: string
           example: "No process"
-        
