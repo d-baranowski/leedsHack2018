@@ -1,6 +1,11 @@
 import data from "./data";
 import {sendToAggregator, waitForElement} from "./common";
 
+const getRandomReplacement = (replacement) => {
+    const items = replacement.replacementTexts; 
+    const maxLength = items.length;
+    return items[Math.floor(Math.random()*maxLength)];
+};
 
 const deBullshitifyArticle = () => {
     const promise = waitForElement("#vjs-desc");
@@ -11,20 +16,19 @@ const deBullshitifyArticle = () => {
         const advertText = advertElement.textContent;
         console.log("advert text", advertText);
 
-        const replacements = await data.getReplacements(advertText);
-        if (replacements) {
-            console.log("replacements", replacements);
-            const body = JSON.stringify({"keywords" : replacements.map((item) => {return item.replacementTexts[0]}), "url" : document.URL})
-            //sendToAggregator(body);
-        }
+        const replacements = await data.getReplacements();
+
+        console.log("replacements", replacements);
+        //const body = JSON.stringify({"keywords" : replacements.map((item) => {return item.replacementTexts[0]}), "url" : document.URL})
+        //sendToAggregator(body);
 
         const currentHtml = advertElement.innerHTML;
         let newHtml = currentHtml;
 
         for (const replacement of replacements) {
-            console.log("Applying replacement");
-            newHtml = newHtml.replace(replacement.textPattern,
-                `<div class="tooltip">$&<span class="tooltiptext">${replacement.replacementTexts[0]}</span></div>`)
+            console.log("Applying replacement", replacement);
+            newHtml = newHtml.replace(new RegExp(replacement.textPattern),
+                `<div class="tooltip">$&<span class="tooltiptext">${getRandomReplacement(replacement)}</span></div>`)
         }
         console.log("Replacing html", newHtml === currentHtml);
         advertElement.innerHTML = newHtml;

@@ -98,16 +98,13 @@ const MOCK_DATA = [
 const apiURL = 'https://9rph5cqv47.execute-api.eu-west-2.amazonaws.com/dev/replacements'
 
 const data = {
-    getReplacements: function(text) {
+    getReplacements: function() {
         return new Promise(function(resolve, reject) {
             needle.get(apiURL, (err, res) => {
                 if (res) {
                     let replacements = res.body
                     console.log("Fetch data", replacements);
-                    const result = replacements.filter(entry => {
-                        return text.match(entry.textPattern)
-                    });
-                    resolve(result);
+                    resolve(replacements);
                 }
                 if (err) {
                     reject(err);
