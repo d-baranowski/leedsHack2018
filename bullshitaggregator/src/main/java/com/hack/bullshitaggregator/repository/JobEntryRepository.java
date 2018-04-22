@@ -13,9 +13,11 @@ public interface JobEntryRepository extends MongoRepository<JobEntry, String> {
     @Query("{ }")
     List<String> find();
 
-    @Query("db.collection.find({ }, { url: ?0 })")
+//    @Query("db.collection.find({ }, { url: ?0 })")
+    @Query("{ keywordId: { url: ?0 } }")
     List<JobEntry> findKeywordIdsByUrl(String url);
 
-    @Query("db.collection.find({ }, { keywordId: ?0 })")
+//    @Query("db.collection.find({ }, { keywordId: ?0 })")
+    @Query("{ url: { keywordId: ?0 } }")
     List<JobEntry> findUrlsByKeywordId(String keywordId);
 }
