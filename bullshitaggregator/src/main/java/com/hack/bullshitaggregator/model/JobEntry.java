@@ -13,10 +13,6 @@ import java.util.List;
 @ToString
 @Component
 public class JobEntry {
-
-//    private String id;
-    private List<String> keywords;
-    @Id
+    private String keywordId;
     private String url;
-
 }
