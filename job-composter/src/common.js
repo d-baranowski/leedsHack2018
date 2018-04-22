@@ -1,4 +1,5 @@
 import needle from "needle"
+import data from "./data";
 
 const getRandomReplacement = (replacement) => {
     const items = replacement.replacementTexts;
@@ -36,4 +37,21 @@ function sendToAggregator(body){
     });
 }
 
-export { waitForElement, sendToAggregator, getRandomReplacement, getTooltipTemplate }
+const deBullshitifyArticle = async (elementSelector) => {
+    const advertElement = await waitForElement(elementSelector);
+    const replacements = await data.getReplacements();
+    const currentHtml = advertElement.innerHTML;
+    let newHtml = currentHtml;
+
+    for (const replacement of replacements) {
+        newHtml = newHtml.replace(
+            new RegExp(replacement.textPattern),
+            getTooltipTemplate(getRandomReplacement(replacement))
+        )
+    }
+    if (newHtml !== currentHtml) {
+        advertElement.innerHTML = newHtml;
+    }
+}
+
+export { waitForElement, sendToAggregator, getRandomReplacement, getTooltipTemplate, deBullshitifyArticle }
