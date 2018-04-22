@@ -8,33 +8,43 @@ const getRandomReplacement = (replacement) => {
 };
 
 function waitForElement(elementQuery){
-    console.log("Starting to waint for element ", elementQuery);
-    return new Promise(function(resolve) {
+    return new Promise(function(resolve, reject) {
         window.setTimeout(function(){
-            var element = document.querySelector(elementQuery);
+            let element = document.querySelector(elementQuery);
             if(element && element.textContent) {
-                console.log("Promise resolved");
                 resolve(document.querySelector(elementQuery));
             } else{
-                console.log("Waiting for element");
                 waitForElement(elementQuery);
             }
         },100)
     });
 }
 
-const getTooltipTemplate = (tooltip) => `<div class="tooltip">$&<span class="tooltiptext">${tooltip}</span></div>`;
+const getTooltipTemplate = (tooltip, id) => `<div id="${id}" class="tooltip">$&<span class="tooltiptext">${tooltip}</span></div>`;
 
 //const bullshitAggregatorApiUrl = 'http://ec2-18-130-16-177.eu-west-2.compute.amazonaws.com:8080/jobLoad';
 const bullshitAggregatorApiUrl = 'https://172.20.226.46:8443/jobLoad';
 
-function sendToAggregator(body){
-    const options = {
-        headers: {'Content-Type': 'application/json'}
-    }
-    needle.post(bullshitAggregatorApiUrl, body, options,  function(err, resp){
-        console.log("succefully saved to aggregator", resp.body)
+
+const options = {
+    headers: {'Content-Type': 'application/json'}
+}
+const sendToAggregator = (body) =>
+    new Promise((resolve, reject) => {
+        needle.post(bullshitAggregatorApiUrl, body, options, (err, resp) => {
+            resp && resolve(resp.body);
+            err && reject(err);
+        });
     });
+
+const updateAggregator = async () => {
+    const tooltips = Array.prototype.slice.call(document.querySelectorAll(".tooltip"));
+    const url = window.location.href;
+    const results = tooltips.map((element => sendToAggregator({
+        url: url,
+        id: element.id
+    })));
+    await Promise.all(results);
 }
 
 const deBullshitifyArticle = async (elementSelector) => {
@@ -46,11 +56,12 @@ const deBullshitifyArticle = async (elementSelector) => {
     for (const replacement of replacements) {
         newHtml = newHtml.replace(
             new RegExp(replacement.textPattern),
-            getTooltipTemplate(getRandomReplacement(replacement))
+            getTooltipTemplate(getRandomReplacement(replacement), replacement.replacementId)
         )
     }
     if (newHtml !== currentHtml) {
         advertElement.innerHTML = newHtml;
+        updateAggregator();
     }
 }
 
