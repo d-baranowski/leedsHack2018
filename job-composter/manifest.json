@@ -5,7 +5,8 @@
   "permissions": [
     "browsingData",
     "https://localhost:8443/*",
-    "https://9rph5cqv47.execute-api.eu-west-2.amazonaws.com/dev/*"
+    "https://9rph5cqv47.execute-api.eu-west-2.amazonaws.com/dev/*",
+    "https://172.20.226.46:8443/*"
   ],
   "browser_action": {
     "default_icon": "icon.png",
