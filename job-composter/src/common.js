@@ -61,7 +61,7 @@ const deBullshitifyArticle = async (elementSelector) => {
     }
     if (newHtml !== currentHtml) {
         advertElement.innerHTML = newHtml;
-        updateAggregator();
+        //updateAggregator();
     }
 }
 
