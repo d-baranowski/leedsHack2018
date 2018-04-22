@@ -31,4 +31,8 @@ public class JobAdEntryController {
         return this.jobEntryOrchestrator.find();
     }
 
+    @PostMapping("/getSimilar")
+    List<String> getSimilarToOurUrl(@RequestBody final String url) {
+        return this.jobEntryOrchestrator.findUrlsWithSimmillarKeywords(url);
+    }
 }

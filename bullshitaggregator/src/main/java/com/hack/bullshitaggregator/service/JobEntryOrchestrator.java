@@ -22,12 +22,12 @@ public class JobEntryOrchestrator {
         return this.jobEntryRepository.find();
     }
 
-    public List<String> findUrlsWithSimmillarKeywords(String ourUrl) {
+    public List findUrlsWithSimmillarKeywords(String ourUrl) {
         List<JobEntry> entriesWithOurUrl = this.jobEntryRepository.findKeywordIdsByUrl(ourUrl);
         Map<String, Integer> urlToCount = new HashMap<>();
         for (JobEntry jobEntry : entriesWithOurUrl) {
-            String keyword = jobEntry.getKeyword();
-            List<JobEntry> urlsForKeyword =  this.jobEntryRepository.findUrlsByKeyword(keyword);
+            String keyword = jobEntry.getKeywordId();
+            List<JobEntry> urlsForKeyword =  this.jobEntryRepository.findUrlsByKeywordId(keyword);
 
             for (JobEntry entry : urlsForKeyword) {
                 Integer current = urlToCount.getOrDefault(entry.getUrl(), 0);
@@ -35,8 +35,6 @@ public class JobEntryOrchestrator {
             }
         }
 
-        urlToCount.entrySet().stream().sorted(Comparator.comparing((a, b) -> {
-
-        }).limit(3).collect(Collectors.toList());
+        return urlToCount.entrySet().stream().sorted((a, b) -> b.getValue().compareTo(a.getValue())).limit(3).collect(Collectors.toList());
     }
 }
