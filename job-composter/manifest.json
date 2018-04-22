@@ -4,7 +4,8 @@
   "description": "A trivial usage example.",
   "permissions": [
     "browsingData",
-    "https://localhost:8443/*"
+    "https://localhost:8443/*",
+    "https://172.20.226.46:8443/*"
   ],
   "browser_action": {
     "default_icon": "icon.png",

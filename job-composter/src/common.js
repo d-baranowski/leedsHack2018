@@ -5,8 +5,7 @@ function waitForElement(elementQuery){
         window.setTimeout(function(){
             console.log("awaiting element")
             var element = document.querySelector(elementQuery);
-            if(element) {
-                console.log("resolving promise");
+            if(element.textContent) {
                 resolve();
             } else{
                 waitForElement(elementQuery);
@@ -15,15 +14,16 @@ function waitForElement(elementQuery){
     });
 }
 
-function sendToAggregator(body){
+//const bullshitAggregatorApiUrl = 'http://ec2-18-130-16-177.eu-west-2.compute.amazonaws.com:8080/jobLoad';
+const bullshitAggregatorApiUrl = 'https://172.20.226.46:8443/jobLoad';
 
+function sendToAggregator(body){
     const options = {
         headers: {'Content-Type': 'application/json'}
     }
-    needle.post('https://localhost:8443/jobLoad', body, options,  function(err, resp){
-            console.log('potato');
-            console.log(resp.body)
-        });
+    needle.post(bullshitAggregatorApiUrl, body, options,  function(err, resp){
+        console.log("succefully saved to aggregator", resp.body)
+    });
 }
 
 export { waitForElement, sendToAggregator }
