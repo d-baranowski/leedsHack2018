@@ -4,14 +4,14 @@ import {sendToAggregator, waitForElement} from "./common";
 
 const deBullshitifyArticle = () => {
     const promise = waitForElement("#vjs-desc");
-    promise.then(() => {
+    promise.then(async () => {
         console.log("Promise resolved");
         const advertElement = document.querySelector('#vjs-desc');
         console.log("Element found");
         const advertText = advertElement.textContent;
         console.log("advert text", advertText);
 
-        const replacements = data.getReplacements(advertText);
+        const replacements = await data.getReplacements(advertText);
         if (replacements) {
             console.log("replacements", replacements);
             const body = JSON.stringify({"keywords" : replacements.map((item) => {return item.replacementTexts[0]}), "url" : document.URL})

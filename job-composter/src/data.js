@@ -99,12 +99,21 @@ const apiURL = 'https://9rph5cqv47.execute-api.eu-west-2.amazonaws.com/dev/repla
 
 const data = {
     getReplacements: function(text) {
-        needle.get(apiURL, (err, res) => {
-            let replacements = res.body
-            return replacements.filter(entry => {
-                return text.match(entry.textPattern)
+        return new Promise(function(resolve, reject) {
+            needle.get(apiURL, (err, res) => {
+                if (res) {
+                    let replacements = res.body
+                    console.log("Fetch data", replacements);
+                    const result = replacements.filter(entry => {
+                        return text.match(entry.textPattern)
+                    });
+                    resolve(result);
+                }
+                if (err) {
+                    reject(err);
+                }
             })
-        })
+        });
     }
 }
 
