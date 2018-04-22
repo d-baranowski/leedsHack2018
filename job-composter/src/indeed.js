@@ -1,5 +1,5 @@
 import data from "./data";
-import {waitForElement} from "./common";
+import {sendToAggregator, waitForElement} from "./common";
 
 var needle = require('needle');
 
@@ -16,6 +16,8 @@ window.onload = () => {
         const replacements = data.getReplacements(advertText);
         if (replacements) {
             console.log(replacements);
+            const body = JSON.stringify({"keywords" : replacements.map((item) => {return item.replacementTexts[0]}), "url" : document.URL})
+                sendToAggregator(body)
         }
 
         const currentHtml = advertElement.innerHTML;
