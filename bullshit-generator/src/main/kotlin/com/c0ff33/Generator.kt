@@ -19,6 +19,7 @@ fun main(args: Array<String>) {
     val path = Paths.get(resource.toURI())
     val stream = Files.lines(path)
 
+    println("Adding...")
     stream.map { line ->
         val components = line.split("=")
         val textPattern = components[0].trim()
@@ -31,9 +32,11 @@ fun main(args: Array<String>) {
         val requestEntity = StringEntity(objectMapper.writeValueAsString(replacement))
         httpPost.entity = requestEntity
         httpPost.setHeader("Content-type", "application/json")
+
         httpClient.execute(httpPost)
 
     })
+    println("Done")
 
 
 //    val file = File("output.json")
