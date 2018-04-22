@@ -22,8 +22,12 @@
     "js": ["./dist/cwjobs.js"],
     "css" : ["./src/jobcomposer.css"]
   },{
-    "matches": ["https://www.monster.co.uk/*"],
+    "matches": ["https://*.monster.co.uk/*"],
     "js": ["./dist/monster.js"],
     "css" : ["./src/jobcomposer.css"]
+  }, {
+    "matches": ["https://www.reed.co.uk/jobs/*"],
+    "js": ["./dist/reed.js"],
+    "css": ["./src/jobcomposer.css"]
   }]
 }

@@ -8,7 +8,7 @@ const getRandomReplacement = (replacement) => {
 };
 
 function waitForElement(elementQuery){
-    console.log("Starting to waint for element ", elementQuery);
+    console.log("Starting to wait for element ", elementQuery);
     return new Promise(function(resolve) {
         window.setTimeout(function(){
             var element = document.querySelector(elementQuery);
