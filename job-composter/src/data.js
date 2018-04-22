@@ -1,3 +1,5 @@
+import needle from "needle"
+
 const MOCK_DATA = [
     {
         "textPattern": "dynamic workplace",
@@ -93,13 +95,16 @@ const MOCK_DATA = [
     }
 ]
 
+const apiURL = 'https://9rph5cqv47.execute-api.eu-west-2.amazonaws.com/dev/replacements'
+
 const data = {
     getReplacements: function(text) {
-        const replacements = MOCK_DATA.filter(entry => {
-            return text.match(entry.textPattern);
-        });
-
-        return replacements;
+        needle.get(apiURL, (err, res) => {
+            let replacements = res.body
+            return replacements.filter(entry => {
+                return text.match(entry.textPattern)
+            })
+        })
     }
 }
 
