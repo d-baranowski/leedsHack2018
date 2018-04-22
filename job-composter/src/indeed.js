@@ -1,38 +1,21 @@
 import data from "./data";
-import {sendToAggregator, waitForElement} from "./common";
+import {sendToAggregator, waitForElement, getRandomReplacement, getTooltipTemplate} from "./common";
 
-const getRandomReplacement = (replacement) => {
-    const items = replacement.replacementTexts; 
-    const maxLength = items.length;
-    return items[Math.floor(Math.random()*maxLength)];
-};
+const deBullshitifyArticle = async () => {
+    const advertElement = await waitForElement("#vjs-desc");
+    const replacements = await data.getReplacements();
+    const currentHtml = advertElement.innerHTML;
+    let newHtml = currentHtml;
 
-const deBullshitifyArticle = () => {
-    const promise = waitForElement("#vjs-desc");
-    promise.then(async () => {
-        console.log("Promise resolved");
-        const advertElement = document.querySelector('#vjs-desc');
-        console.log("Element found");
-        const advertText = advertElement.textContent;
-        console.log("advert text", advertText);
-
-        const replacements = await data.getReplacements();
-
-        console.log("replacements", replacements);
-        //const body = JSON.stringify({"keywords" : replacements.map((item) => {return item.replacementTexts[0]}), "url" : document.URL})
-        //sendToAggregator(body);
-
-        const currentHtml = advertElement.innerHTML;
-        let newHtml = currentHtml;
-
-        for (const replacement of replacements) {
-            console.log("Applying replacement", replacement);
-            newHtml = newHtml.replace(new RegExp(replacement.textPattern),
-                `<div class="tooltip">$&<span class="tooltiptext">${getRandomReplacement(replacement)}</span></div>`)
-        }
-        console.log("Replacing html", newHtml === currentHtml);
+    for (const replacement of replacements) {
+        newHtml = newHtml.replace(
+            new RegExp(replacement.textPattern),
+            getTooltipTemplate(getRandomReplacement(replacement))
+        )
+    }
+    if (newHtml !== currentHtml) {
         advertElement.innerHTML = newHtml;
-    });
+    }
 }
 
 window.onload = () => {
