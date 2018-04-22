@@ -12,7 +12,7 @@ window.onload = () => {
             const foundIt = data.getReplacements(advertText);
             if (foundIt) {
                 console.log(foundIt);
-                const body = JSON.stringify({"keywords" : foundIt, "url" : document.URL})
+                const body = JSON.stringify({"keywords" : foundIt.map((item) => {return item.replacementTexts[0]}), "url" : document.URL})
                 sendToAggregator(body)
             }
     });

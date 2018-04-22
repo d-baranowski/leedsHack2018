@@ -3,7 +3,8 @@
   "version": "1.1",
   "description": "A trivial usage example.",
   "permissions": [
-    "browsingData"
+    "browsingData",
+    "https://localhost:8443/*"
   ],
   "browser_action": {
     "default_icon": "icon.png",
