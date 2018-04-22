@@ -1,6 +1,7 @@
 'use strict';
 
 const apiURL = 'https://9rph5cqv47.execute-api.eu-west-2.amazonaws.com/dev/replacements'
+const aggregatorUrl = "https://localhost:8443/getSimilar";
 
 const addTranslationHTML = `
       <div id="add">
@@ -15,6 +16,24 @@ const addTranslationHTML = `
         </form>
       </div>
 `
+const options =  {
+    "Content-Type": "application/json",
+    "Accepts": "application/json",
+};
+const fetchSimmillarUrls = (tabLink) => {
+    return new Promise((resolve, reject) => {
+        fetch(aggregatorUrl, {
+            body: JSON.stringify(tabLink),
+            method: 'POST',
+            headers: options,
+            mode: 'no-cors'
+        }).then((response, error) => {
+            console.log("What is wrong", response.body, error)
+            response && resolve(response);
+            error && reject(error);
+        })
+    })
+}
 
 window.onload = () => {
     const d = document
@@ -54,7 +73,16 @@ window.onload = () => {
 
     // TODO: Remove if more than one option is provided
     content.innerHTML = addTranslationHTML
-    addTranslationController()
+    addTranslationController();
+
+    chrome.tabs.getSelected(null,function(tab) {
+        var tablink = tab.url;
+        fetchSimmillarUrls(tablink).then((response) => {
+            console.log(response.body)
+            document.getElementById("similar").innerHTML = JSON.stringify(response.body);
+        })
+    });
+
 }
 
 const addTranslation = (textPattern, replacementTexts, callback) => {

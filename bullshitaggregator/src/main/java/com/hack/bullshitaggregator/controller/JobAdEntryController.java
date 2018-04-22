@@ -30,8 +30,7 @@ public class JobAdEntryController {
         return this.jobEntryOrchestrator.find();
     }
 
-    @PostMapping(value = "/getSimilar", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/getSimilar")
     List getSimilarToOurUrl(@RequestBody final String url) {
         return this.jobEntryOrchestrator.findUrlsWithSimmilarKeywords(url);
     }

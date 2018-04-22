@@ -23,8 +23,8 @@ function waitForElement(elementQuery){
 const getTooltipTemplate = (tooltip, id) => `<div id="${id}" class="tooltip">$&<span class="tooltiptext">${tooltip}</span></div>`;
 
 //const bullshitAggregatorApiUrl = 'http://ec2-18-130-16-177.eu-west-2.compute.amazonaws.com:8080/jobLoad';
-const bullshitAggregatorApiUrl = 'https://172.20.226.46:8443/jobLoad';
-
+//const bullshitAggregatorApiUrl = 'https://172.20.226.46:8443/jobLoad';
+const bullshitAggregatorApiUrl = 'https://localhost:8443/jobLoad';
 
 const options = {
     headers: {'Content-Type': 'application/json'}
@@ -61,7 +61,7 @@ const deBullshitifyArticle = async (elementSelector) => {
     }
     if (newHtml !== currentHtml) {
         advertElement.innerHTML = newHtml;
-        //updateAggregator();
+        updateAggregator();
     }
 }
 
