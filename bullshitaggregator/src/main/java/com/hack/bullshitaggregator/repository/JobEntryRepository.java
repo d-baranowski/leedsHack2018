@@ -10,7 +10,12 @@ import java.util.List;
 @Repository
 public interface JobEntryRepository extends MongoRepository<JobEntry, String> {
 
-    @Query("{ keywords: { $all: ?0 } }")
-//    @Query("{keywords: {$exists:true}, $where:'this.keywords.length > 2'}")
-    List<JobEntry> findByKeywordsIn(List<String> keywords);
+    @Query("{ }")
+    List<String> find();
+
+    @Query("{ 'url': ?0}")
+    List<JobEntry> findKeywordIdsByUrl(String url);
+
+    @Query("{ 'keywordId': ?0 }")
+    List<JobEntry> findUrlsByKeywordId(String keywordId);
 }
