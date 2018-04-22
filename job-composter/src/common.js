@@ -1,13 +1,15 @@
 import needle from "needle"
 
 function waitForElement(elementQuery){
+    console.log("Starting to waint for element ", elementQuery);
     return new Promise(function(resolve) {
-        window.setTimeout(function(){
-            console.log("awaiting element")
+        window.setTimeout(function() {
             var element = document.querySelector(elementQuery);
-            if(element.textContent) {
+            if(element && element.textContent) {
+                console.log("Promise resolved");
                 resolve();
             } else{
+                console.log("Waiting for element");
                 waitForElement(elementQuery);
             }
         },100)
