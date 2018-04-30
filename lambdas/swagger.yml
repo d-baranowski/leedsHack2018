@@ -1,0 +1,123 @@
+swagger: '2.0'
+info:
+  description: API to populate Replacements
+  version: 1.0.0
+  title: Replacements API
+
+schemes:
+  - https
+
+host: "9rph5cqv47.execute-api.eu-west-2.amazonaws.com"
+basePath: "/dev"
+
+# tags are used for organizing operations
+tags:
+- name: replacements
+  description: Text replacements
+
+paths:
+ /replacements:
+  get:
+    tags:
+    - replacements
+    summary: Gets the list of all replacement pairs
+    operationId: getReplacements
+    produces:
+    - application/json
+    responses:
+      200:
+        description: Returns the list of all replacement pairs
+        schema:
+          $ref: "#/definitions/ReplacementPairs"
+        
+  post:
+    tags:
+    - replacements
+    summary: "Create a replacement pair"
+    operationId: postReplacement
+    consumes: 
+    - application/json
+    parameters: 
+    - in: body
+      name: "Replacement Pair Request"
+      description: "Request body to create a replacement pair"
+      schema:
+        $ref: "#/definitions/ReplacementPair"
+    responses:
+      200:
+        description: OK
+      500:
+        description: "Error inserting item"
+
+ /replacements/{replacementId}:
+  get:
+    summary: "Info for a replacement pair"
+    operationId: getReplacement
+    tags:
+      - replacements
+    produces:
+      - application/json
+    parameters:
+      - in: path
+        name: "Replacement ID"
+        description: "ID of replacement pair requested"
+        required: true
+        type: string
+    responses:
+      200:
+        description: OK
+        schema:
+          type: object
+          $ref: "#/definitions/ReplacementPair"
+      500: 
+        description: "Error getting replacement pairs"
+        
+  put:
+    summary: "Update a replacement pair"
+    operationId: putReplacement
+    tags:
+      - replacements
+    consumes:
+      - application/json
+    parameters:
+      - in: path
+        name: "Replacement ID"
+        description: "ID of replacement pair requested"
+        required: true
+      - in: body
+        name: "Replacement Pair"
+        description: "The replacement pair object to be stored at this ID"
+        schema:
+          $ref: "#/definitions/ReplacementPair"
+    responses:
+      200:
+        description: OK
+      500:
+        description: "Internal server error"
+
+
+
+definitions:
+  ReplacementPairs:
+    type: array
+    items:
+      $ref: "#/definitions/ReplacementPair"
+    
+  ReplacementPair:
+    type: object
+    required:
+    - replacementId
+    - textPattern
+    - replacementTexts
+    properties:
+      replacementId:
+        type: string
+        format: uuid
+        example: "f1b1cf41-09a9-4d05-8089-400b4ab930fd"
+      textPattern:
+        type: string
+        example: "[aA]gile"
+      replacementTexts:
+        items:
+          type: string
+          example: "No process"
